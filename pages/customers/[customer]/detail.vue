@@ -23,7 +23,7 @@
     </k-block>
 
     <k-list strong v-if="!loading">
-      <k-list-item class="bg-gray-200 ios:top-11-safe material:top-16-safe sticky z-20">
+      <k-list-item class="bg-gray-200 dark:bg-gray-600 ios:top-11-safe material:top-16-safe sticky z-20">
         <template #title>
           <div class="text-sm">
             Catatan

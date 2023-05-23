@@ -14,6 +14,13 @@ export const useCustomerStore = definePiniaStore('customer', {
         ap_balance: 0,
         ar_ap_balance: 0,
       },
+      form: {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        customer_id: '',
+      },
       ArAps: [],
     };
   },
@@ -25,7 +32,7 @@ export const useCustomerStore = definePiniaStore('customer', {
       const { data } = await useBaseFetch('/customers', {
         method: 'GET',
         query: {
-          company_id: loggedInUserCompany.id
+          company_id: loggedInUserCompany.value.id
         }
       });
 
@@ -54,6 +61,20 @@ export const useCustomerStore = definePiniaStore('customer', {
       if (data.value) {
         this.ArAps = data.value?.data || [];
       }
-    }
+    },
+    async createCustomer() {
+      const companyStore = useCompanyStore();
+      const { loggedInUserCompany } = storeToRefs(companyStore);
+      this.form.company_id = loggedInUserCompany.value.id;
+
+      const { data } = await useBaseFetch('/customers', {
+        method: 'POST',
+        body: JSON.stringify(this.form)
+      });
+
+      if (data.value) {
+        useRouter().push('/customers');
+      }
+    },
   }
 });
