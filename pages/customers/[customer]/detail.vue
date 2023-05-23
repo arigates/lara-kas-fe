@@ -18,6 +18,10 @@
       </div>
     </k-card>
 
+    <k-block class="text-center" v-if="loading">
+      <k-preloader />
+    </k-block>
+
     <k-list strong v-if="!loading">
       <k-list-item class="bg-gray-200 ios:top-11-safe material:top-16-safe sticky z-20">
         <template #title>
@@ -88,6 +92,8 @@ import {
   kBadge,
   kDialog,
   kDialogButton,
+  kBlock,
+  kPreloader,
 } from 'konsta/vue';
 import { useIndexStore } from '~/stores';
 
@@ -113,8 +119,8 @@ const ArApStore = useArApStore();
 const { modalDelete } = storeToRefs(ArApStore);
 const { setModalDelete, setArApIdToDelete, deleteArAp } = ArApStore;
 
-await getCustomer(customerId);
-await getCustomerArAp(customerId);
+getCustomer(customerId);
+getCustomerArAp(customerId);
 
 function showModalDeleteArAp(id) {
   setModalDelete(true);

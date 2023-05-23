@@ -1,9 +1,40 @@
 <template>
   <div>
     <k-card>
-      This is a simple card with plain text, but cards can also contain their
-      own header, footer, list view, image, or any other element.
+      <div class="grid grid-cols-2">
+        <div class="grid-span-1 p-2 text-center">
+          <div class="border-b-2 border-stone-300 p-2">
+            <div class="flex flex-col">
+              <div class="text-xs text-gray-500">Utang Saya</div>
+              <div class="text-lg font-bold text-blue-600">
+                {{ useFormatCurrency(totalArAp.totalAp) }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid-span-1 p-2 text-center">
+          <div class="border-b-2 border-stone-300 p-2">
+            <div class="flex flex-col">
+              <div class="text-xs text-gray-500">Utang Pelanggan</div>
+              <div class="text-lg font-bold text-rose-600">
+                {{ useFormatCurrency(totalArAp.totalAr) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1">
+        <div>
+          <k-button outline-ios large>Tambah Pelanggan</k-button>
+        </div>
+      </div>
     </k-card>
+
+    <k-block class="text-center" v-if="loading">
+      <k-preloader />
+    </k-block>
+
     <k-list strong inset v-if="!loading">
       <template v-for="customer in customers" :key="customer.id">
         <k-list-item :title="customer.name" @click="$router.push(`/customers/${customer.id}/detail`)">
@@ -29,9 +60,12 @@ import {
   kList,
   kListItem,
   kCard,
+  kButton,
+  kBlock,
+  kPreloader,
 } from 'konsta/vue';
 import { useIndexStore } from '~/stores';
-
+import { useCompanyStore } from '~/stores/company';
 import { useCustomerStore } from '~~/stores/customer';
 
 definePageMeta({
@@ -45,5 +79,10 @@ const customerStore = useCustomerStore();
 const { customers } = storeToRefs(customerStore);
 const { getCustomers } = customerStore;
 
-await getCustomers();
+const companyStore = useCompanyStore();
+const { totalArAp } = storeToRefs(companyStore);
+const { getTotalArAp } = companyStore;
+
+getCustomers();
+getTotalArAp();
 </script>
