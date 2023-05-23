@@ -26,7 +26,7 @@
 
       <div class="grid grid-cols-1">
         <div>
-          <k-button outline-ios large>Tambah Pelanggan</k-button>
+          <k-button outline-ios large @click="$router.push('/customers/create')">Tambah Pelanggan</k-button>
         </div>
       </div>
     </k-card>
