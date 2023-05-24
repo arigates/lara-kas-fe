@@ -22,7 +22,14 @@
         />
       </k-list>
       <k-block class="space-y-4">
-        <k-button type="button" large @click="login" :disabled="loading">Submit</k-button>
+        <k-button type="button" large @click="login" :disabled="loading">
+          <div v-if="loading">
+            <k-preloader></k-preloader>
+          </div>
+          <div v-else>
+            Submit
+          </div>
+        </k-button>
       </k-block>
     </form>
   </k-page>
@@ -36,6 +43,7 @@ import {
   kListInput,
   kButton,
   kBlock,
+  kPreloader,
 } from 'konsta/vue';
 
 import { storeToRefs } from 'pinia';

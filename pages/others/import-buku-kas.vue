@@ -19,7 +19,14 @@
     </k-list>
 
     <k-block class="space-y-4">
-      <k-button large @click="importBukuKas(fileRef)" :disabled="loading">Import</k-button>
+      <k-button large @click="importBukuKas(fileRef)" :disabled="loading">
+        <div v-if="loading">
+          <k-preloader></k-preloader>
+        </div>
+        <div v-else>
+          Import
+        </div>
+      </k-button>
     </k-block>
   </div>
 </template>
@@ -30,6 +37,7 @@ import {
   kListInput,
   kBlock,
   kButton,
+  kPreloader,
 } from 'konsta/vue';
 import { useIndexStore } from '~/stores';
 import { useImportStore } from '~/stores/import';

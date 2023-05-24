@@ -6,7 +6,12 @@
           <k-button
             @click="createCustomer"
             class="w-full font-bold capitalize pr-4 pl-4" :disabled="loading" large rounded>
-            Simpan Pelanggan Baru
+            <div v-if="loading">
+              <k-preloader></k-preloader>
+            </div>
+            <div v-else>
+              Simpan Pelanggan Baru
+            </div>
           </k-button>
         </k-tabbar-link>
       </k-tabbar>
@@ -30,6 +35,7 @@ import {
   kTabbar,
   kTabbarLink,
   kButton,
+  kPreloader,
 } from 'konsta/vue';
 import { useIndexStore } from '~/stores';
 import { useCompanyStore } from '~/stores/company';

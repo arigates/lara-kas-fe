@@ -6,7 +6,12 @@
           <k-button
             @click="createArAp"
             class="w-full font-bold capitalize pr-4 pl-4" :disabled="loading" large rounded>
-            Simpan Transaksi
+            <div v-if="loading">
+              <k-preloader></k-preloader>
+            </div>
+            <div v-else>
+              Simpan Transaksi
+            </div>
           </k-button>
         </k-tabbar-link>
       </k-tabbar>
@@ -30,6 +35,7 @@ import {
   kTabbar,
   kTabbarLink,
   kButton,
+  kPreloader,
 } from 'konsta/vue';
 import { useIndexStore } from '~/stores';
 import { useArApStore } from '~/stores/ar-ap';
