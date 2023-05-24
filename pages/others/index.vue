@@ -24,6 +24,10 @@ definePageMeta({
   middleware: ['auth', 'me']
 });
 
+useHead({
+  title: 'Fitur Lainnya',
+});
+
 const authStore = useAuthStore();
 const { logout } = authStore;
 </script>

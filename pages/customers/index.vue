@@ -72,6 +72,10 @@ definePageMeta({
   middleware: ['auth', 'me']
 });
 
+useHead({
+  title: 'Data Pelanggan',
+});
+
 const indexStore = useIndexStore();
 const { loading } = storeToRefs(indexStore);
 

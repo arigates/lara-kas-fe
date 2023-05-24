@@ -105,6 +105,10 @@ definePageMeta({
   layout: 'customer-detail'
 });
 
+useHead({
+  title: 'Detail Pelanggan',
+});
+
 const route = useRoute();
 const { customer: customerId } = route.params;
 

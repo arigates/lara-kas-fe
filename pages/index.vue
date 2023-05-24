@@ -7,4 +7,8 @@
 definePageMeta({
   middleware: ['me', 'auth']
 });
+
+useHead({
+  title: 'Catat Hutang Piutang Lebih Mudah',
+});
 </script>

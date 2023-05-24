@@ -52,6 +52,10 @@ definePageMeta({
   layout: 'create-customer'
 });
 
+useHead({
+  title: 'Tambah Pelanggan',
+});
+
 const indexStore = useIndexStore();
 const { validationErrors } = storeToRefs(indexStore);
 

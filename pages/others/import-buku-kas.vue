@@ -34,6 +34,14 @@ import {
 import { useIndexStore } from '~/stores';
 import { useImportStore } from '~/stores/import';
 
+definePageMeta({
+  middleware: ['auth', 'me'],
+});
+
+useHead({
+  title: 'Import Buku Kas',
+});
+
 const fileRef = ref(null);
 
 const indexStore = useIndexStore();

@@ -54,6 +54,11 @@ const ArApStore = useArApStore();
 const { form } = storeToRefs(ArApStore);
 
 const route = useRoute();
-form.value.type = route.query?.type || '';
+const typeArAp = route.query?.type || '';
+form.value.type = typeArAp;
 form.value.customer_id = route.query?.customer_id || '';
+
+useHead({
+  title: typeArAp === 'ap' ? 'Tambah Hutang' : 'Tambah Piutang'
+});
 </script>
