@@ -2,7 +2,7 @@
   <div>
     <k-card>
       <div class="grid grid-cols-1">
-        <div>Total Hutang <kBadge class="rounded-md" :colors="{ bg: 'bg-gray-400' }">{{ customer.name }}</kBadge> ke <kBadge class="rounded-md" :colors="{ bg: 'bg-gray-400' }">Saya</kBadge></div>
+        <div>Total Hutang <kBadge class="rounded-md" :colors="{ bg: 'bg-gray-400' }">{{ customer.name }}</kBadge></div>
       </div>
 
       <div class="grid grid-cols-2 mt-2">
@@ -10,10 +10,6 @@
           <p class="text-lg font-black">
             {{ useFormatCurrency(customer.ar_ap_balance) }}
           </p>
-        </div>
-
-        <div class="grid-span-1">
-          <k-button @click="$router.push(`/customers/${customerId}/report`)">Laporan</k-button>
         </div>
       </div>
     </k-card>
@@ -38,7 +34,7 @@
       </k-list-item>
 
       <template v-for="ArAp in ArAps" :key="ArAp.id">
-        <k-list-item @click="showModalDeleteArAp(ArAp.id)">
+        <k-list-item>
           <template #title>
             <div class="flex flex-col text-sm">
               <div>
@@ -64,23 +60,6 @@
         </k-list-item>
       </template>
     </k-list>
-
-    <k-dialog
-      :opened="modalDelete"
-      @backdropclick="() => (modalDelete = false)"
-    >
-      <template #title>Hapus Transaksi</template>
-      Transaksi yang telah dihapus tidak bisa dikembalikan. Yakin ingin menghapus data transaksi ini?
-
-      <template #buttons>
-        <k-dialog-button @click="deleteArAp" :disabled="loading">
-          Ya
-        </k-dialog-button>
-        <k-dialog-button @click="hideModalDeleteArAp">
-          Tidak
-        </k-dialog-button>
-      </template>
-    </k-dialog>
   </div>
 </template>
 
@@ -90,11 +69,8 @@ import {
   kList,
   kListItem,
   kBadge,
-  kDialog,
-  kDialogButton,
   kBlock,
   kPreloader,
-  kButton,
 } from 'konsta/vue';
 import { useIndexStore } from '~/stores';
 
@@ -102,12 +78,11 @@ import { useArApStore } from '~/stores/ar-ap';
 import { useCustomerStore } from '~~/stores/customer';
 
 definePageMeta({
-  middleware: ['auth', 'me'],
-  layout: 'customer-detail'
+  layout: 'auth'
 });
 
 useHead({
-  title: 'Detail Pelanggan',
+  title: 'Laporan Hutang Pelanggan',
 });
 
 const route = useRoute();
@@ -118,14 +93,14 @@ const { loading } = indexStore;
 
 const customerStore = useCustomerStore();
 const { ArAps, customer } = storeToRefs(customerStore);
-const { getCustomerArAp, getCustomer } = customerStore;
+const { getCustomerArApPublic, getCustomerPublic } = customerStore;
 
 const ArApStore = useArApStore();
 const { modalDelete } = storeToRefs(ArApStore);
 const { setModalDelete, setArApIdToDelete, deleteArAp } = ArApStore;
 
-getCustomer(customerId);
-getCustomerArAp(customerId);
+getCustomerPublic(customerId);
+getCustomerArApPublic(customerId);
 
 function showModalDeleteArAp(id) {
   setModalDelete(true);

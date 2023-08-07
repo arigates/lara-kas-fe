@@ -62,6 +62,28 @@ export const useCustomerStore = definePiniaStore('customer', {
         this.ArAps = data.value?.data || [];
       }
     },
+    async getCustomerPublic(customerId) {
+      const { data } = await useBaseFetch(`/customers/public/${customerId}`, {
+        method: 'GET'
+      });
+
+      if (data.value) {
+        const customer = data.value?.data;
+        this.customer = customer;
+      }
+    },
+    async getCustomerArApPublic(customerId) {
+      const { data } = await useBaseFetch('/ar-ap/public', {
+        method: 'GET',
+        query: {
+          customer_id: customerId
+        }
+      });
+
+      if (data.value) {
+        this.ArAps = data.value?.data || [];
+      }
+    },
     async createCustomer() {
       const companyStore = useCompanyStore();
       const { loggedInUserCompany } = storeToRefs(companyStore);
